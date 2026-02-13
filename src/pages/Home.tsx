@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Phone, Stethoscope, Pill, Mic } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
+import CaretakerBottomNav from "@/components/CaretakerBottomNav";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { userData } from "@/data/mockData";
@@ -60,7 +60,7 @@ const Home = () => {
         </div>
       </div>
 
-      <BottomNav />
+      <CaretakerBottomNav />
     </div>
   );
 };

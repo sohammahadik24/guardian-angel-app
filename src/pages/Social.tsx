@@ -1,12 +1,16 @@
 import { useState } from "react";
-import { Phone, MessageCircle, Music, Heart, Send } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
+import { useNavigate } from "react-router-dom";
+import { Phone, MessageCircle, Music, Heart, Send, ArrowLeft } from "lucide-react";
+import RoleNav from "@/components/RoleNav";
+import { useUserRole } from "@/context/UserRoleContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { emergencyContacts, dailyEngagement, chatMessages as initialMessages } from "@/data/mockData";
 
 const Social = () => {
+  const navigate = useNavigate();
+  const { role } = useUserRole();
   const [activeTab, setActiveTab] = useState<"contacts" | "engage" | "chat">("contacts");
   const [messages, setMessages] = useState(initialMessages);
   const [newMsg, setNewMsg] = useState("");
@@ -32,6 +36,12 @@ const Social = () => {
   return (
     <div className="min-h-screen bg-background pb-24">
       <div className="px-6 pt-8 pb-4">
+        {role === "elderly" && (
+          <button onClick={() => navigate("/")} className="flex items-center gap-2 text-primary mb-4 min-h-[48px]">
+            <ArrowLeft className="w-6 h-6" />
+            <span className="text-elderly-sm font-semibold">Back</span>
+          </button>
+        )}
         <h1 className="text-elderly-xl font-bold animate-fade-in">💛 Social & Support</h1>
       </div>
 
@@ -125,7 +135,7 @@ const Social = () => {
         )}
       </div>
 
-      <BottomNav />
+      <RoleNav />
     </div>
   );
 };

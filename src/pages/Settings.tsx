@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Globe, Type, Users, User, ChevronRight, Rocket } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
+import { Globe, Type, Users, User, ChevronRight, Rocket, LogOut } from "lucide-react";
+import CaretakerBottomNav from "@/components/CaretakerBottomNav";
+import { useUserRole } from "@/context/UserRoleContext";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { userData } from "@/data/mockData";
@@ -10,6 +11,7 @@ const languages = ["English", "हिन्दी (Hindi)", "தமிழ் (Ta
 
 const Settings = () => {
   const navigate = useNavigate();
+  const { logout } = useUserRole();
   const [fontSize, setFontSize] = useState<"large" | "extra-large">("large");
   const [selectedLang, setSelectedLang] = useState("English");
 
@@ -110,9 +112,18 @@ const Settings = () => {
             <ChevronRight className="w-6 h-6 text-muted-foreground" />
           </CardContent>
         </Card>
+
+        {/* Logout */}
+        <Button
+          variant="outline"
+          className="w-full h-14 rounded-2xl text-elderly-sm text-sos border-sos/30 hover:bg-sos/10"
+          onClick={() => { logout(); navigate("/login"); }}
+        >
+          <LogOut className="w-5 h-5 mr-2" /> Log Out
+        </Button>
       </div>
 
-      <BottomNav />
+      <CaretakerBottomNav />
     </div>
   );
 };

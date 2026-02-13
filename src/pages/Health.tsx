@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Pill, Heart, FileText, Plus, Check } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
+import { useNavigate } from "react-router-dom";
+import { Pill, Heart, FileText, Plus, Check, ArrowLeft } from "lucide-react";
+import RoleNav from "@/components/RoleNav";
+import { useUserRole } from "@/context/UserRoleContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -10,6 +12,8 @@ import { Label } from "@/components/ui/label";
 import { medications as initialMeds, healthTips, userData } from "@/data/mockData";
 
 const Health = () => {
+  const navigate = useNavigate();
+  const { role } = useUserRole();
   const [meds, setMeds] = useState(initialMeds);
   const [activeTab, setActiveTab] = useState<"meds" | "tips" | "records">("meds");
 
@@ -26,6 +30,12 @@ const Health = () => {
   return (
     <div className="min-h-screen bg-background pb-24">
       <div className="px-6 pt-8 pb-4">
+        {role === "elderly" && (
+          <button onClick={() => navigate("/")} className="flex items-center gap-2 text-primary mb-4 min-h-[48px]">
+            <ArrowLeft className="w-6 h-6" />
+            <span className="text-elderly-sm font-semibold">Back</span>
+          </button>
+        )}
         <h1 className="text-elderly-xl font-bold animate-fade-in">❤️ Health & Medication</h1>
       </div>
 
@@ -154,7 +164,7 @@ const Health = () => {
         )}
       </div>
 
-      <BottomNav />
+      <RoleNav />
     </div>
   );
 };
