@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MapPin, Phone, Building2, Stethoscope, Cross, Ambulance } from "lucide-react";
-import BottomNav from "@/components/BottomNav";
+import RoleNav from "@/components/RoleNav";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { nearbyFacilities } from "@/data/mockData";
@@ -76,7 +76,7 @@ const NearbyHelp = () => {
         ))}
       </div>
 
-      <BottomNav />
+      <RoleNav />
     </div>
   );
 };

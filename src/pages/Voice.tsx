@@ -3,7 +3,7 @@ import { Mic, MicOff, Volume2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import BottomNav from "@/components/BottomNav";
+import RoleNav from "@/components/RoleNav";
 import { ArrowLeft } from "lucide-react";
 
 const voiceCommands = [
@@ -98,7 +98,7 @@ const Voice = () => {
         </div>
       </div>
 
-      <BottomNav />
+      <RoleNav />
     </div>
   );
 };
