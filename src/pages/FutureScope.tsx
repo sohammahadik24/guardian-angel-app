@@ -14,32 +14,36 @@ const FutureScope = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background pb-8">
-      <div className="px-6 pt-8 pb-4">
-        <button onClick={() => navigate("/settings")} className="flex items-center gap-2 text-primary mb-4 min-h-[48px]">
-          <ArrowLeft className="w-6 h-6" />
-          <span className="text-elderly-sm font-semibold">Back</span>
-        </button>
-        <h1 className="text-elderly-xl font-bold animate-fade-in">🚀 Future Scope</h1>
-        <p className="text-muted-foreground text-elderly-sm mt-2">
-          Planned features for upcoming versions of the app
-        </p>
-      </div>
+    <div className="min-h-screen pb-8 relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-32 gradient-header rounded-b-[2rem]" />
 
-      <div className="px-6 space-y-4">
-        {futureFeatures.map((feature, i) => (
-          <Card key={i} className="bg-card border-0 shadow-sm animate-fade-in">
-            <CardContent className="flex items-start gap-4 p-5">
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
-                <feature.icon className="w-7 h-7 text-primary" />
-              </div>
-              <div>
-                <h3 className="text-elderly-sm font-bold">{feature.title}</h3>
-                <p className="text-muted-foreground mt-1">{feature.description}</p>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="relative z-10">
+        <div className="page-header">
+          <button onClick={() => navigate("/settings")} className="flex items-center gap-2 text-primary-foreground/80 mb-4 min-h-[48px]">
+            <ArrowLeft className="w-6 h-6" />
+            <span className="text-elderly-sm font-semibold">Back</span>
+          </button>
+          <h1 className="text-elderly-xl font-bold text-primary-foreground animate-fade-in">🚀 Future Scope</h1>
+          <p className="text-primary-foreground/70 text-elderly-sm mt-2">
+            Planned features for upcoming versions
+          </p>
+        </div>
+
+        <div className="px-6 space-y-4">
+          {futureFeatures.map((feature, i) => (
+            <Card key={i} className="bg-card border-0 rounded-2xl card-elevated animate-fade-in">
+              <CardContent className="flex items-start gap-4 p-5">
+                <div className="icon-circle bg-primary/10">
+                  <feature.icon className="w-7 h-7 text-primary" />
+                </div>
+                <div>
+                  <h3 className="text-elderly-sm font-bold">{feature.title}</h3>
+                  <p className="text-muted-foreground mt-1">{feature.description}</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );
