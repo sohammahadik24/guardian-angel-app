@@ -14,7 +14,7 @@ const CaretakerBottomNav = () => {
   const location = useLocation();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card border-t border-border shadow-lg">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-t border-border/50 shadow-lg">
       <div className="flex justify-around items-center max-w-lg mx-auto h-20">
         {tabs.map((tab) => {
           const isActive = location.pathname === tab.path;
@@ -22,9 +22,9 @@ const CaretakerBottomNav = () => {
             <Link
               key={tab.path}
               to={tab.path}
-              className={`flex flex-col items-center justify-center gap-1 min-w-[52px] min-h-[48px] rounded-xl px-2 py-2 transition-colors ${
+              className={`flex flex-col items-center justify-center gap-1 min-w-[52px] min-h-[48px] rounded-xl px-2 py-2 transition-all ${
                 isActive
-                  ? "text-primary bg-primary/10"
+                  ? "text-primary bg-primary/10 scale-105"
                   : "text-muted-foreground hover:text-primary"
               }`}
               aria-label={tab.label}

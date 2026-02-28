@@ -34,105 +34,109 @@ const Social = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background pb-24">
-      <div className="px-6 pt-8 pb-4">
-        {role === "elderly" && (
-          <button onClick={() => navigate("/")} className="flex items-center gap-2 text-primary mb-4 min-h-[48px]">
-            <ArrowLeft className="w-6 h-6" />
-            <span className="text-elderly-sm font-semibold">Back</span>
-          </button>
-        )}
-        <h1 className="text-elderly-xl font-bold animate-fade-in">💛 Social & Support</h1>
-      </div>
+    <div className="min-h-screen pb-24 relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-32 gradient-header rounded-b-[2rem]" />
 
-      <div className="px-6 flex gap-2 mb-6">
-        {tabs.map((tab) => (
-          <Button
-            key={tab.key}
-            variant={activeTab === tab.key ? "default" : "outline"}
-            className="rounded-2xl h-14 text-elderly-sm px-5 flex-1"
-            onClick={() => setActiveTab(tab.key)}
-          >
-            <tab.icon className="w-5 h-5 mr-2" /> {tab.label}
-          </Button>
-        ))}
-      </div>
+      <div className="relative z-10">
+        <div className="page-header">
+          {role === "elderly" && (
+            <button onClick={() => navigate("/")} className="flex items-center gap-2 text-primary-foreground/80 mb-4 min-h-[48px]">
+              <ArrowLeft className="w-6 h-6" />
+              <span className="text-elderly-sm font-semibold">Back</span>
+            </button>
+          )}
+          <h1 className="text-elderly-xl font-bold text-primary-foreground animate-fade-in">💛 Social & Support</h1>
+        </div>
 
-      <div className="px-6">
-        {activeTab === "contacts" && (
-          <div className="space-y-3 animate-fade-in">
-            {emergencyContacts.map((contact) => (
-              <Card key={contact.id} className="bg-card border-0 shadow-sm">
-                <CardContent className="flex items-center gap-4 p-5">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <Phone className="w-7 h-7 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-elderly-sm font-bold">{contact.name}</p>
-                    <p className="text-sm text-muted-foreground">{contact.relation}</p>
-                  </div>
-                  <Button
-                    className="rounded-2xl h-14 px-6 bg-primary text-primary-foreground"
-                    onClick={() => window.open(`tel:${contact.phone}`)}
-                  >
-                    <Phone className="w-5 h-5" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
+        <div className="px-6 flex gap-2 mb-6">
+          {tabs.map((tab) => (
+            <Button
+              key={tab.key}
+              variant={activeTab === tab.key ? "default" : "secondary"}
+              className="rounded-2xl h-14 text-elderly-sm px-5 flex-1 shadow-sm"
+              onClick={() => setActiveTab(tab.key)}
+            >
+              <tab.icon className="w-5 h-5 mr-2" /> {tab.label}
+            </Button>
+          ))}
+        </div>
 
-        {activeTab === "engage" && (
-          <div className="space-y-3 animate-fade-in">
-            {dailyEngagement.map((item, i) => (
-              <Card key={i} className={`border-0 shadow-sm ${
-                item.type === "music" ? "bg-primary/5" : item.type === "prayer" ? "bg-accent" : "bg-card"
-              }`}>
-                <CardContent className="p-5">
-                  <p className="text-elderly-base">{item.content}</p>
-                  {item.author && <p className="text-sm text-muted-foreground mt-2">— {item.author}</p>}
-                  {item.type === "music" && (
-                    <Button variant="outline" className="mt-3 rounded-2xl h-12">
-                      <Music className="w-5 h-5 mr-2" /> Play
+        <div className="px-6">
+          {activeTab === "contacts" && (
+            <div className="space-y-3 animate-fade-in">
+              {emergencyContacts.map((contact) => (
+                <Card key={contact.id} className="bg-card border-0 rounded-2xl card-elevated">
+                  <CardContent className="flex items-center gap-4 p-5">
+                    <div className="icon-circle bg-primary/10">
+                      <Phone className="w-6 h-6 text-primary" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-elderly-sm font-bold">{contact.name}</p>
+                      <p className="text-sm text-muted-foreground">{contact.relation}</p>
+                    </div>
+                    <Button
+                      className="rounded-2xl h-14 px-6 bg-primary text-primary-foreground shadow-sm"
+                      onClick={() => window.open(`tel:${contact.phone}`)}
+                    >
+                      <Phone className="w-5 h-5" />
                     </Button>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
-
-        {activeTab === "chat" && (
-          <div className="animate-fade-in">
-            <div className="bg-card rounded-2xl p-4 shadow-sm border border-border mb-4 min-h-[300px] max-h-[400px] overflow-y-auto space-y-3">
-              {messages.map((msg) => (
-                <div key={msg.id} className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${
-                    msg.isUser ? "bg-primary text-primary-foreground" : "bg-muted"
-                  }`}>
-                    <p className="text-elderly-sm">{msg.text}</p>
-                    <p className={`text-xs mt-1 ${msg.isUser ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
-                      {msg.time}
-                    </p>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
-            <div className="flex gap-2">
-              <Input
-                className="h-14 text-elderly-base rounded-2xl flex-1"
-                placeholder="Type a message..."
-                value={newMsg}
-                onChange={(e) => setNewMsg(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-              />
-              <Button className="h-14 w-14 rounded-2xl shrink-0" onClick={sendMessage}>
-                <Send className="w-6 h-6" />
-              </Button>
+          )}
+
+          {activeTab === "engage" && (
+            <div className="space-y-3 animate-fade-in">
+              {dailyEngagement.map((item, i) => (
+                <Card key={i} className={`border-0 rounded-2xl card-elevated ${
+                  item.type === "music" ? "bg-primary/5" : item.type === "prayer" ? "bg-accent" : "bg-card"
+                }`}>
+                  <CardContent className="p-5">
+                    <p className="text-elderly-base">{item.content}</p>
+                    {item.author && <p className="text-sm text-muted-foreground mt-2">— {item.author}</p>}
+                    {item.type === "music" && (
+                      <Button variant="outline" className="mt-3 rounded-2xl h-12 shadow-sm">
+                        <Music className="w-5 h-5 mr-2" /> Play
+                      </Button>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
             </div>
-          </div>
-        )}
+          )}
+
+          {activeTab === "chat" && (
+            <div className="animate-fade-in">
+              <div className="bg-card rounded-2xl p-4 card-elevated mb-4 min-h-[300px] max-h-[400px] overflow-y-auto space-y-3">
+                {messages.map((msg) => (
+                  <div key={msg.id} className={`flex ${msg.isUser ? "justify-end" : "justify-start"}`}>
+                    <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+                      msg.isUser ? "bg-primary text-primary-foreground" : "bg-muted"
+                    }`}>
+                      <p className="text-elderly-sm">{msg.text}</p>
+                      <p className={`text-xs mt-1 ${msg.isUser ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                        {msg.time}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <Input
+                  className="h-14 text-elderly-base rounded-2xl flex-1"
+                  placeholder="Type a message..."
+                  value={newMsg}
+                  onChange={(e) => setNewMsg(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                />
+                <Button className="h-14 w-14 rounded-2xl shrink-0 shadow-sm" onClick={sendMessage}>
+                  <Send className="w-6 h-6" />
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <RoleNav />
